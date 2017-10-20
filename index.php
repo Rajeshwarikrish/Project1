@@ -128,12 +128,13 @@ class uploadfile
     }
     public function post() {*/
     $tardir = "uploads/";
-    print_r($_FILES);
-    $tarFile = $tardir . $_FILES["fileToUpload"]["name"];
+   // print_r($_FILES);
+   // $tarFile = $tardir . $_FILES["fileToUpload"]["name"];
     $fileType = pathinfo($tarFile,PATHNFO_EXTENSION);
     if(isset($_POST["submit"]))  {
       $soucefile=$_FILES["selectFile"]["tmp_name"];
       move_uploaded_file($sourcefile,$tarFile);
+      	return $tarFile;
         echo 'File Uploaded Successfully';
     }
 }
