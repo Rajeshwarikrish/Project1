@@ -95,10 +95,16 @@ class homepage extends page {
 		   }
 		   $table .= '</tr></thead><tbody>';
 		}
-		
-
-  	}
-    }
+                else {
+		      $table .='<tr>';
+		      foreach ($data as $value)  {
+		        if(!isset($value))
+			  $value = "&nbsp";
+			else
+			  $table .= "<td>". $value . "</td>";
+		      $table .='</tr>';
+  	       	      }
+	  }
 }
 /*
 class uploadform extends page
