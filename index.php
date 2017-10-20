@@ -104,13 +104,20 @@ class homepage extends page {
 			  $table .= "<td>". $value . "</td>";
 		      $table .='</tr>';
   	       	      }
-	  }
+	       }
+	}
+	$heading++;
+	$table .= '</tbody></table>';
+	$this->html .= $table;
+	fclose($handle);
+	stringFunctions::printThis($this->html);
+     }
 }
-/*
-class uploadform extends page
+
+class uploadfile
 {
-    public function get()
-    {
+    public static function csvfileupload($sourcefile,$tmp_name) {
+    /*    {
     $form .= '<form action="index.php?page=uploadform" method="post"
     enctype="multipart/form-data">';
     $form .= '<input type="file" name="fileToUpload" id="fileToUpload">';
@@ -119,11 +126,11 @@ class uploadform extends page
     $this->html .='<h1>Upload Form</h1>';
     $this->html .= $form;
     }
-    public function post() {
+    public function post() {*/
     $tardir = "uploads/";
     print_r($_FILES);
-    $tarFile = $tardir . $_FILES["selectFile"]["name"];
-    $fileType = pathinfo($targetFile,PATHNFO_EXTENSION);
+    $tarFile = $tardir . $_FILES["fileToUpload"]["name"];
+    $fileType = pathinfo($tarFile,PATHNFO_EXTENSION);
     if(isset($_POST["submit"]))  {
       $soucefile=$_FILES["selectFile"]["tmp_name"];
       move_uploaded_file($sourcefile,$tarFile);
