@@ -83,7 +83,8 @@ class table extends page
 	 public function get()
 	 {
 	    $sourcefile=$_GET['filename'];
-	    echo trim($sourcefile,"uploads/"). " is successfully uploaded<br><br> The Table is as shown below<br><br>";
+	    echo "<font color= \"#CB4335 \"> Filename: </font>";
+	    echo trim($sourcefile,"uploads/"). "<br> The above mentioned file is successfully uploaded<br><br> The Table is as shown below<br><br>";
 	    $heading = 1;
 	    $handle = fopen($sourcefile,"r");
 	    $table = '<table border="1">';
