@@ -67,7 +67,7 @@ class homepage extends page {
 	$this->html .= $form;						
       }
       public function post() {
-          $tardir = "uploads/";
+    /*      $tardir = "uploads/";
 	  print_r($_FILES);
 	  $tarFile = $tardir . $_FILES["fileToUpload"]["name"];
 	  $fileType = pathinfo($tarFile,PATHINFO_EXTENSION);
@@ -75,6 +75,28 @@ class homepage extends page {
 	      $soucefile=$_FILES["fileToUpload"]["tmp_name"];
 	       move_uploaded_file($sourcefile,$tarFile);
 	       echo 'File Uploaded Successfully';
+	       */
+
+	    if(isset($_POST["submit"]))
+	    {
+	    $sourcefile=$_GET['sourcefile'];
+	    echo trim($sourcefile,"uploads/"). "is successfully uploaded<br><br> The Table is as shown below<br>";
+	    $heading = 1;
+	    $handle = fopen($sourcefile,"r");
+	    $table = '<table border="1">';
+	    while(($data = fgetcsv($handle))!=FALSE) {
+	       if ($heading == 1) {
+	         $table .='<thead><tr>';
+		   foreach ($data as $value) {
+		     if (!isset($value))
+		       $value = "&nbsp";
+		     else
+		       $table .= "<th>". $value ."</th>";
+		   }
+		   $table .= '</tr></thead><tbody>';
+		}
+		
+
   	}
     }
 }
