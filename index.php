@@ -117,16 +117,6 @@ class homepage extends page {
 class uploadfile
 {
     public static function csvfileupload($sourcefile,$tmp_name) {
-    /*    {
-    $form .= '<form action="index.php?page=uploadform" method="post"
-    enctype="multipart/form-data">';
-    $form .= '<input type="file" name="fileToUpload" id="fileToUpload">';
-    $form .= '<input type="submit" value="Upload Image" name="submit">';
-    $form .='</form>';
-    $this->html .='<h1>Upload Form</h1>';
-    $this->html .= $form;
-    }
-    public function post() {*/
     $tardir = "uploads/";
    // print_r($_FILES);
    // $tarFile = $tardir . $_FILES["fileToUpload"]["name"];
@@ -135,7 +125,7 @@ class uploadfile
       $soucefile=$_FILES["selectFile"]["tmp_name"];
       move_uploaded_file($sourcefile,$tarFile);
       	return $tarFile;
-        echo 'File Uploaded Successfully';
+        //echo 'File Uploaded Successfully';
     }
 }
 */
