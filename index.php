@@ -109,11 +109,11 @@ class table extends page
 			  $value = "&nbsp";
 			else
 			  $table .= "<td>". $value . "</td>";
+		      }
 		      $table .='</tr>';
-  	       	      }
-	        }
-	  }
-	 $heading++;
+  	       	}
+	  	$heading++;
+	 }
 	 $table .= '</tbody></table>';
 	 $this->html .= $table;
 	 fclose($handle);
