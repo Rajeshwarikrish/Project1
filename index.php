@@ -60,7 +60,7 @@ class homepage extends page {
 	$form .= '<center>';
 	$form .= '<input type="file" name="fileToUpload" id="fileToUpload">';
 	$form .= '<br>';
-	$form .= '<input type="submit" value="Submit">';
+	$form .= '<input type="submit" value="submit">';
 	$form .= '</center>';
 	$form .= '</form> ';
 	$this->html .= '<center><h2>Upload Page</h2></center>';
@@ -77,19 +77,22 @@ class homepage extends page {
 	       echo 'File Uploaded Successfully';
 	       */
 
-	    if(isset($_POST["submit"])) {
+	    //if(isset($_POST["submit"])) {
+	    
 	    $sourcefile = $_FILES["fileToUpload"]["name"];
 	    $tempname = $_FILES["fileToUpload"]["tmp_name"];
-	    $fileName = upload::uploadCsv($fileName,$tempName);
-	    header('Loaction:?page=table&fileName='.$sourcefile);
-	    }
+	   // print_r($_FILES);
+	    $filename = uploadfile::csvfileupload($sourcefile,$tempname);
+	    //echo $filename;
+	    header('Location:?page=table&filename='.$filename);
+	   // }
 	 }
     }
      class table extends page
      {
 	 public function get() 
 	 {
-	    $sourcefile=$_GET['sourcefile'];
+	    $sourcefile=$_GET['filename'];
 	    echo trim($sourcefile,"uploads/"). "is successfully uploaded<br><br> The Table is as shown below<br>";
 	    $heading = 1;
 	    $handle = fopen($sourcefile,"r");
@@ -125,17 +128,19 @@ class homepage extends page {
     }
 class uploadfile
 {
-    public static function csvfileupload($sourcefile,$tmp_name) {
+    public static function csvfileupload($sourcefile,$tmpname) {
     $tardir = "uploads/";
    // print_r($_FILES);
    // $tarFile = $tardir . $_FILES["fileToUpload"]["name"];
-    $fileType = pathinfo($tarFile,PATHNFO_EXTENSION);
-    if(isset($_POST["submit"]))  {
-      $soucefile=$_FILES["selectFile"]["tmp_name"];
-      move_uploaded_file($sourcefile,$tarFile);
-      	return $tarFile;
+    $tarfile = $tardir. $sourcefile;
+    $fileType = pathinfo($tarfile,PATHINFO_EXTENSION);
+    //if(isset($_POST["submit"]))  {
+     // $tempfile = $_FILES["selectFile"]["tmp_name"];
+     $tempfile = $tmpname;
+     move_uploaded_file($tempfile,$tarfile);
+      	return $tarfile;
         //echo 'File Uploaded Successfully';
-    	}
+    	//}
     }
 }
 class stringFunctions {
