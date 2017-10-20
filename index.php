@@ -77,8 +77,18 @@ class homepage extends page {
 	       echo 'File Uploaded Successfully';
 	       */
 
-	    if(isset($_POST["submit"]))
-	    {
+	    if(isset($_POST["submit"])) {
+	    $sourcefile = $_FILES["fileToUpload"]["name"];
+	    $tempname = $_FILES["fileToUpload"]["tmp_name"];
+	    $fileName = upload::uploadCsv($fileName,$tempName);
+	    header('Loaction:?page=table&fileName='.$sourcefile);
+	    }
+	 }
+    }
+     class table extends page
+     {
+	 public function get() 
+	 {
 	    $sourcefile=$_GET['sourcefile'];
 	    echo trim($sourcefile,"uploads/"). "is successfully uploaded<br><br> The Table is as shown below<br>";
 	    $heading = 1;
@@ -111,9 +121,8 @@ class homepage extends page {
 	$this->html .= $table;
 	fclose($handle);
 	stringFunctions::printThis($this->html);
-     }
-}
-
+     	}
+    }
 class uploadfile
 {
     public static function csvfileupload($sourcefile,$tmp_name) {
@@ -126,9 +135,9 @@ class uploadfile
       move_uploaded_file($sourcefile,$tarFile);
       	return $tarFile;
         //echo 'File Uploaded Successfully';
+    	}
     }
 }
-*/
 class stringFunctions {
   public static function printThis($text)  {
   print($text);
