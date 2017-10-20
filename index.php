@@ -83,7 +83,7 @@ class table extends page
 	 public function get()
 	 {
 	    $sourcefile=$_GET['filename'];
-	    echo trim($sourcefile,"uploads/"). "is successfully uploaded<br><br> The Table is as shown below<br>";
+	    echo trim($sourcefile,"uploads/"). " is successfully uploaded<br><br> The Table is as shown below<br><br>";
 	    $heading = 1;
 	    $handle = fopen($sourcefile,"r");
 	    $table = '<table border="1">';
@@ -117,8 +117,7 @@ class table extends page
 	 $table .= '</tbody></table>';
 	 $this->html .= $table;
 	 fclose($handle);
-	 stringFunctions::printThis($this->html);
-     	}
+    	}
 }
 class uploadfile
 {
