@@ -13,6 +13,10 @@ $obj = new main();
 class main {
 	public function __construct()
 	{
+	$pageToLoad = frontController::pageLoader();
+	$page = new $pageToLoad;
+	frontController::methodLoader($page);
+	/*
 	   $pageRequest = 'homepage';
 	   if(isset($_REQUEST['page'])) {
 	   $pageRequest = $_REQUEST['page'];
@@ -22,7 +26,8 @@ class main {
 	   $page->get();
 	   } else {
        	   $page->post();
-	   }
+
+	   } */
       }
 }
 
@@ -119,7 +124,29 @@ class table extends page
 	 $this->html .= $table;
 	 fclose($handle);
     	}
-}
+} 
+class frontController {
+ 	 
+	public static function pageLoader() {
+	  if (isset($_REQUEST['page']))  {
+	     return $_REQUEST['page'];
+	  }
+	  else  {
+	     $pageToLoad = 'homepage';
+	     return $pageToLoad;
+	     }
+	  }
+
+	  public static function methodLoader($page)  {
+	    if ($_SERVER['REQUEST_METHOD'] == 'GET')  {
+	      $page->get();
+	    }
+	    else  {
+	      $page->post();
+	    }
+        }
+   }
+
 class uploadfile
 {
     	public static function csvfileupload($sourcefile,$tmpname) 
