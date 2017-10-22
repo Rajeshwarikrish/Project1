@@ -28,7 +28,7 @@
      }
      
      public function __destruct() {
-        $this->html .= html::eTag('body') . html::eTag('html');;
+        $this->html .= html::eTag('body') . html::eTag('html');
         stringFunctions::printThis($this->html);
      }
      
@@ -43,15 +43,15 @@
 
   class homepage extends page {
      public function get() {
-	$form = '<form action="index.php" method="post" enctype="multipart/form-data">';
-	$form .= '<h3><center>Select the CSV File to be uploaded:<br></center></h3>';
-	$form .= '<center>';
-	$form .= '<input type="file" name="fileToUpload" id="fileToUpload">';
-	$form .= '<br>';
-	$form .= '<input type="submit" value="submit">';
-	$form .= '</center>';
-	$form .= '</form> ';
-	$this->html .= '<center><h2>Upload Page</h2></center>';
+	$form = html::sTag('form action="index.php" method="post" enctype="multipart/form-data"');
+	$form .= html::sTag('center');
+	$form .= html::h1('Select the CSV File to be uploaded:') . html::br();
+	$form .= html::input('type="file" name="fileToUpload" id="fileToUpload"');
+	$form .= html::br();
+	$form .= html::input('type="submit" value="submit"');
+	$form .= html::eTag('center');
+	$form .= html::eTag('form');
+	$this->html .= html::sTag('center') . html::h2('Upload Page') . html::eTag('center');
 	$this->html .= $form;						
      }
         
@@ -66,35 +66,35 @@
   class table extends page {
      public function get() {
        $sourcefile=$_GET['filename'];
-       echo "<font color= \"#CB4335 \"> Filename: </font>";
+       echo html::sTag('font color= \"#CB4335 \"') . 'Filename:' . html::eTag('font');
        echo trim($sourcefile,"uploads/"). "<br> The above mentioned file is successfully uploaded<br><br> The Table is as shown below<br><br>";
        $heading = 1;
        $handle = fopen($sourcefile,"r");
-       $table = '<table border="1">';
+       $table = html::sTag('table border="1"');
        while(($data = fgetcsv($handle))!=FALSE) {
           if ($heading == 1) {
-	     $table .='<thead><tr>';
+	     $table .= html::sTag('thead') . html::sTag('tr');
 	     foreach ($data as $value) {
 	        if (!isset($value))
 	           $value = "&nbsp";
 	        else
-	           $table .= "<th>". $value ."</th>";
+	           $table .= html::th($value);
              }
-	     $table .= '</tr></thead><tbody>';
+	     $table .= html::eTag('tr') . html::eTag('thead') . html::sTag('tbody');
 	  }
           else {
-	     $table .='<tr>';
+	     $table .= html::sTag('tr');
 	     foreach ($data as $value) {
 		if(!isset($value))
 		$value = "&nbsp";
 		else
-	        $table .= "<td>". $value . "</td>";
+	        $table .= html::td($value);
 	     }
-	     $table .='</tr>';
+	     $table .= html::eTag('tr');
   	  }
 	  $heading++;
       }
-      $table .= '</tbody></table>';
+      $table .= html::eTag('tbody') . html::eTag('table');
       $this->html .= $table;
       fclose($handle);
      }
@@ -170,12 +170,17 @@
 	return $tag;
      }
 
+     public static function h2($value) {
+        $tag = '<h2>'. $value .'</h2>';
+	return $tag;
+     }
+
      public static function th($value) {
         $tag = '<th>'. $value .'</th>';
 	return $tag;
      }
 
-     public static function tr($value) {
+     public static function td($value) {
         $tag = '<td>'. $value .'</td>';
 	return $tag;
      }
