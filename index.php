@@ -13,9 +13,9 @@ $obj = new main();
 class main {
 	public function __construct()
 	{
-	$pageToLoad = frontController::pageLoader();
+	$pageToLoad = Controller::pageLoader();
 	$page = new $pageToLoad;
-	frontController::methodLoader($page);
+	Controller::methodLoader($page);
 	/*
 	   $pageRequest = 'homepage';
 	   if(isset($_REQUEST['page'])) {
@@ -125,7 +125,7 @@ class table extends page
 	 fclose($handle);
     	}
 } 
-class frontController {
+class Controller {
  	 
 	public static function pageLoader() {
 	  if (isset($_REQUEST['page']))  {
