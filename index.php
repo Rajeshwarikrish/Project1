@@ -22,13 +22,13 @@
      protected $html;
      
      public function __construct() {
-        $this->html .= '<html>';
-        $this->html .= '<link rel="stylesheet" href="styles.css">';
-	$this->html .= '<body>';
+        $this->html .= html::sTag('html');
+        $this->html .= html::sTag('rel="stylesheet" href="styles.css"');
+	$this->html .= html::sTag('body');
      }
      
      public function __destruct() {
-        $this->html .= '</body></html>';
+        $this->html .= html::eTag('body') . html::eTag('html');;
         stringFunctions::printThis($this->html);
      }
      
@@ -136,6 +136,48 @@
   class stringFunctions {
      public static function printThis($text)  {
         print($text);
+     }
+  }
+
+  class html {
+     public static function sTag($value) {
+        $tag = '<'. $value .'>';
+	return $tag;
+     }
+
+     public static function eTag($value) {
+        $tag = '</'. $value .'>';
+	return $tag;
+     }
+
+     public static function title($value) {
+        $tag = '<title>'. $value .'</title>';
+	return $tag;
+     }
+
+     public static function input($value) {
+        $tag = '<input '. $value .'>';
+	return $tag;
+     }
+
+     public static function br() {
+        $tag = '<br>';
+	return $tag;
+     }
+
+     public static function h1($value) {
+        $tag = '<h1>'. $value .'</h1>';
+	return $tag;
+     }
+
+     public static function th($value) {
+        $tag = '<th>'. $value .'</th>';
+	return $tag;
+     }
+
+     public static function tr($value) {
+        $tag = '<td>'. $value .'</td>';
+	return $tag;
      }
   }
 ?>
